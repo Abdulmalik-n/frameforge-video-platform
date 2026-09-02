@@ -1,0 +1,19 @@
+{
+  "name": "frameforge-video-platform",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Lossless video preservation, exact-byte self-hosted playback, and optional 60→120 FPS interpolation.",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "check": "node --check src/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "multer": "^2.0.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

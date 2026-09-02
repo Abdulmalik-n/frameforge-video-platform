@@ -1,0 +1,17 @@
+services:
+  frameforge:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      STORAGE_DIR: /app/storage
+      MAX_UPLOAD_GB: 4
+      FILE_TTL_HOURS: 24
+      X264_PRESET: slow
+      X264_CRF: 10
+    volumes:
+      - frameforge_storage:/app/storage
+
+volumes:
+  frameforge_storage:
