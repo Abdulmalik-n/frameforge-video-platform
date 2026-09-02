@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FrameForge — Preserve Quality / 120 FPS</title>
+  <meta name="description" content="Preserve an encoded video stream exactly or create a motion-interpolated 120 FPS version." />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="grain"></div>
+
+  <header class="nav shell">
+    <a class="brand" href="/">
+      <span class="brandMark">FF</span>
+      <span>FRAMEFORGE</span>
+    </a>
+    <div class="navBadge"><span></span> VIDEO ENGINE ONLINE</div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="kicker">QUALITY PRESERVATION ENGINE</div>
+      <h1>Keep the master.<br><em>Control the frames.</em></h1>
+      <p class="lead">
+        Preserve the encoded video stream exactly, host the resulting file without
+        server-side recompression, or create a motion-interpolated 120 FPS version.
+      </p>
+
+      <div class="platformWarning">
+        <strong>About TikTok / Instagram / YouTube:</strong>
+        FrameForge can preserve your file exactly on this website. Third-party platforms
+        control their own transcoding, so nobody outside those platforms can guarantee
+        that their final playback will remain 100% identical.
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="modeGrid">
+        <label class="modeCard active" data-mode="preserve">
+          <input type="radio" name="mode" value="preserve" checked />
+          <div class="modeTop">
+            <span class="modeIcon">◇</span>
+            <span class="pill success">BIT-EXACT VIDEO STREAM</span>
+          </div>
+          <h2>Preserve Master</h2>
+          <p>No video re-encoding. The encoded video stream is SHA-256 verified before and after.</p>
+          <ul>
+            <li>Same encoded video packets</li>
+            <li>Same resolution and FPS</li>
+            <li>Clean MP4 remux + fast start</li>
+            <li>Direct self-hosted playback</li>
+          </ul>
+        </label>
+
+        <label class="modeCard" data-mode="interpolate120">
+          <input type="radio" name="mode" value="interpolate120" />
+          <div class="modeTop">
+            <span class="modeIcon">120</span>
+            <span class="pill">MOTION INTERPOLATION</span>
+          </div>
+          <h2>120 FPS Creator</h2>
+          <p>Creates synthetic in-between frames using motion-compensated interpolation.</p>
+          <ul>
+            <li>Targets 120 FPS</li>
+            <li>Maintains source resolution</li>
+            <li>High-quality H.264 encode</li>
+            <li>New frames are generated, not captured</li>
+          </ul>
+        </label>
+      </div>
+
+      <form id="form" class="uploadPanel">
+        <input id="fileInput" type="file" name="video"
+          accept=".mp4,.mov,.m4v,.mkv,.webm,video/*" hidden />
+
+        <button id="dropZone" class="dropZone" type="button">
+          <div class="dropOrb">↑</div>
+          <div class="dropTitle">Drop your master video</div>
+          <div class="dropSub">MP4 · MOV · M4V · MKV · WebM</div>
+          <div class="dropMeta">Up to <span id="maxUpload">4 GB</span></div>
+        </button>
+
+        <div id="fileCard" class="fileCard hidden">
+          <div class="fileGlyph">V</div>
+          <div class="fileInfo">
+            <strong id="fileName"></strong>
+            <span id="fileSize"></span>
+          </div>
+          <button id="removeFile" class="ghostBtn" type="button">Remove</button>
+        </div>
+
+        <div id="modeNotice" class="modeNotice">
+          Preserve Master keeps the encoded video stream identical. The MP4 container may change.
+        </div>
+
+        <button id="processBtn" class="primaryBtn hidden" type="submit">
+          PRESERVE & VERIFY
+        </button>
+
+        <div id="processing" class="processing hidden">
+          <div class="spinner"></div>
+          <div>
+            <strong id="processingTitle">Processing video…</strong>
+            <p id="processingText">Uploading, remuxing and verifying the encoded stream.</p>
+          </div>
+        </div>
+
+        <div id="errorBox" class="errorBox hidden"></div>
+      </form>
+    </section>
+
+    <section id="result" class="result hidden">
+      <div class="resultHeader">
+        <div>
+          <div class="kicker">PROCESS COMPLETE</div>
+          <h2 id="resultTitle">Verified master</h2>
+        </div>
+        <span id="verifiedBadge" class="verifiedBadge">✓ VERIFIED</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span>Resolution</span><strong id="statRes">—</strong></div>
+        <div class="stat"><span>Frame rate</span><strong id="statFps">—</strong></div>
+        <div class="stat"><span>Codec</span><strong id="statCodec">—</strong></div>
+        <div class="stat"><span>Mode</span><strong id="statMode">—</strong></div>
+      </div>
+
+      <div class="hashBox">
+        <span>Stored file SHA-256</span>
+        <code id="fileHash"></code>
+      </div>
+
+      <div id="losslessProof" class="proof"></div>
+
+      <div class="actions">
+        <a id="watchLink" class="primaryBtn linkBtn" target="_blank" rel="noopener">OPEN SHARE PAGE</a>
+        <a id="downloadLink" class="secondaryBtn linkBtn">DOWNLOAD FILE</a>
+        <button id="copyLink" class="secondaryBtn" type="button">COPY SHARE LINK</button>
+      </div>
+    </section>
+
+    <section class="explain">
+      <div>
+        <div class="kicker">WHAT “100%” MEANS HERE</div>
+        <h2>Exact file delivery on your own site.</h2>
+      </div>
+      <div class="explainText">
+        <p>
+          In Preserve Master mode, FrameForge never re-encodes the video stream. The server
+          verifies the encoded stream and then serves the stored MP4 directly using HTTP byte
+          ranges. People opening your FrameForge share page receive that stored file without
+          FrameForge recompressing it.
+        </p>
+        <p>
+          A browser, display, device, HDR pipeline, or third-party social network can still
+          render or transcode it differently. That part is outside this website's control.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>FRAMEFORGE / V2</span>
+    <span>Preserve source streams · Optional 120 FPS interpolation</span>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

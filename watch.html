@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FrameForge Viewer</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="watchBody">
+  <header class="nav shell">
+    <a class="brand" href="/">
+      <span class="brandMark">FF</span>
+      <span>FRAMEFORGE</span>
+    </a>
+    <div class="navBadge"><span></span> DIRECT FILE PLAYBACK</div>
+  </header>
+
+  <main class="shell watchMain">
+    <section class="viewer">
+      <video id="player" controls playsinline preload="metadata"></video>
+    </section>
+
+    <section class="watchInfo">
+      <div>
+        <div class="kicker">SHARED MASTER</div>
+        <h1 id="title" class="watchTitle">Loading…</h1>
+        <p id="detail" class="watchDetail"></p>
+      </div>
+      <a id="download" class="primaryBtn linkBtn">DOWNLOAD EXACT STORED FILE</a>
+    </section>
+
+    <section class="proofCard">
+      <strong>Direct delivery</strong>
+      <p>
+        This player requests the stored MP4 from FrameForge's <code>/media</code> endpoint.
+        FrameForge does not create a lower-quality streaming rendition.
+      </p>
+      <code id="hash"></code>
+    </section>
+  </main>
+
+  <script src="/watch.js"></script>
+</body>
+</html>
